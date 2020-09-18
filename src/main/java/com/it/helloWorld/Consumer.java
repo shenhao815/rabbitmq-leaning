@@ -1,5 +1,6 @@
 package com.it.helloWorld;
 
+import com.it.utils.RabbitMQUtils;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -7,17 +8,10 @@ import java.util.concurrent.TimeoutException;
 
 public class Consumer {
 
-    public static void main(String[] args) throws IOException, TimeoutException {
-        // 创建连接mq的连接工厂对象
-        ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("39.98.174.58");
-        connectionFactory.setPort(5672);
-        connectionFactory.setVirtualHost("/ems");
-        connectionFactory.setUsername("ems");
-        connectionFactory.setPassword("123");
+    public static void main(String[] args) throws IOException{
 
-        // 获取连接对象
-        Connection connection = connectionFactory.newConnection();
+        // 使用工具获取连接
+        Connection connection = RabbitMQUtils.getConnection();
 
         // 获取连接中通道
         Channel channel = connection.createChannel();
@@ -28,7 +22,10 @@ public class Consumer {
 
         // 消费消息
         // 参数1： 消费哪个队列的消息 队列名称
-        // 参数2：开始消息的自动确认机制
+        // 参数2：开始消息的自动确认机制 true 自动确认，false-不自动确认
+        //       所谓自动确认是指：消费者不关心自己的业务有没有处理完，他只要拿到平均分配的消息，
+        //       他就告诉队列那些消息已经消费完了，此时队列就把分给它的消息全部删除掉，
+        //       但实际上消费者可能还没有处理掉分给它的消息。如果此时该消费者宕机，那么它未处理的消息就丢失了。
         // 参数3：消费时的回调接口
         channel.basicConsume("hello", true, new DefaultConsumer(channel){
             @Override
