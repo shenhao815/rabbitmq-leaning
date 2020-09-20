@@ -1,13 +1,11 @@
-package com.it.helloWorld;
+package com.it.basic.helloWorld;
 
-import com.it.utils.RabbitMQUtils;
+import com.it.basic.utils.RabbitMQUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 public class Provider {
 

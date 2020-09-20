@@ -1,6 +1,6 @@
-package com.it.direct;
+package com.it.basic.topic;
 
-import com.it.utils.RabbitMQUtils;
+import com.it.basic.utils.RabbitMQUtils;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
@@ -12,13 +12,15 @@ import java.io.IOException;
  * @description
  */
 public class Provider {
-
     public static void main(String[] args) throws IOException {
+        String exchangeName = "topics";
+
         Connection connection = RabbitMQUtils.getConnection();
         Channel channel = connection.createChannel();
-        channel.exchangeDeclare("logs_direct", "direct");
-        String routingKey = "info";
-        channel.basicPublish("logs_direct",routingKey,null,("指定的route key [ "+routingKey+" ] 发送的消息").getBytes());
+        channel.exchangeDeclare(exchangeName, "topic");
+        String routingKey = "user.save";
+        channel.basicPublish(exchangeName, routingKey, null, ("这是动态路由模式（topic）发送的消息，routingKey为[" + routingKey + "]").getBytes());
         RabbitMQUtils.closeConnectionAndChannel(channel,connection);
+
     }
 }

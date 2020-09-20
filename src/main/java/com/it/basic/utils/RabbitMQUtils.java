@@ -1,4 +1,4 @@
-package com.it.utils;
+package com.it.basic.utils;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

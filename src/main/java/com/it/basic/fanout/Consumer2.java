@@ -1,6 +1,6 @@
-package com.it.fanout;
+package com.it.basic.fanout;
 
-import com.it.utils.RabbitMQUtils;
+import com.it.basic.utils.RabbitMQUtils;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.io.IOException;
  * @date 2020-9-18
  * @description
  */
-public class Consumer1 {
+public class Consumer2 {
     public static void main(String[] args) throws IOException {
         // 获取连接
         Connection connection = RabbitMQUtils.getConnection();
@@ -27,7 +27,7 @@ public class Consumer1 {
         channel.basicConsume(queueName,true,new DefaultConsumer(channel){
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("消费者1： "+ new String(body));
+                System.out.println("消费者2： "+ new String(body));
             }
         });
 

@@ -1,10 +1,9 @@
-package com.it.helloWorld;
+package com.it.basic.helloWorld;
 
-import com.it.utils.RabbitMQUtils;
+import com.it.basic.utils.RabbitMQUtils;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 public class Consumer {
 
